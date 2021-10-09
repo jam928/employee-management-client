@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Employee } from './model/employee';
 import { Page } from './model/Page';
@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
       params += "&email="+email;
     }
     this.employeeService.getEmployees(params).subscribe((response: Page) => {      
+        console.log(response);
         this.employees = response.content;
         this.collectionSize=response.totalElements;
     }, (error: HttpErrorResponse) => {
@@ -68,8 +69,8 @@ export class AppComponent implements OnInit {
 
   public onUpdateEmployee(editForm: NgForm) : void {
     document.getElementById('edit-employee-form').click();
-    editForm.value.id = this.editEmployee.id;
-    editForm.value.employeeCode = this.editEmployee.employeeCode;
+    editForm.value.id = this.editEmployee?.id;
+    editForm.value.employeeCode = this.editEmployee?.employeeCode;
     this.employeeService.updateEmployee(editForm.value).subscribe((response: Employee) => {
       console.log(response);
       this.getEmployees(null);
@@ -79,7 +80,7 @@ export class AppComponent implements OnInit {
   }
 
   public onDeleteEmployee() : void {
-    this.employeeService.deleteEmployee(this.editEmployee.id).subscribe((response) => {
+    this.employeeService.deleteEmployee(this.editEmployee?.id).subscribe((response) => {
       console.log(response);
       document.getElementById('delete-employee-form').click();
       this.getEmployees(null);
