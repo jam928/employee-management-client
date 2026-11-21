@@ -1,6 +1,13 @@
 import { Employee } from "./employee";
 
-export interface Page {
+export interface PageMetadata {
+    size: number;
+    number: number;
     totalElements: number;
-    content: Employee[]
+    totalPages: number;
+}
+
+export interface Page {
+    content: Employee[];
+    page: PageMetadata;
 }

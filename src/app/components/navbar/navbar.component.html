@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Employee Management</a>
+  <button
+    type="button"
+    class="theme-toggle ml-auto order-lg-last"
+    (click)="theme.toggle()"
+    [attr.aria-label]="themeToggleLabel"
+    [title]="themeToggleLabel"
+  >
+    <i class="fa" [ngClass]="theme.theme === 'dark' ? 'fa-sun-o' : 'fa-moon-o'"></i>
+  </button>
+  <button
+    class="navbar-toggler"
+    type="button"
+    (click)="menuCollapsed = !menuCollapsed"
+    aria-controls="navbar-content"
+    [attr.aria-expanded]="!menuCollapsed"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse" id="navbar-content" [ngbCollapse]="menuCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" role="button" tabindex="0"
+          (click)="dialogs.openAdd()" (keydown.enter)="dialogs.openAdd()">Add Employee</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" (submit)="$event.preventDefault()">
+      <input
+        #search
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search Employees..."
+        aria-label="Search"
+        (input)="store.search(search.value)"
+      />
+    </form>
+  </div>
+</nav>

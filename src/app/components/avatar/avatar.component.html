@@ -1,0 +1,14 @@
+<img
+  *ngIf="showImage; else fallback"
+  [src]="imageUrl"
+  [alt]="name || 'Photo'"
+  class="avatar"
+  [class.avatar--lg]="size === 'lg'"
+  (error)="broken = true"
+/>
+<ng-template #fallback>
+  <div class="avatar avatar--initials" [class.avatar--lg]="size === 'lg'">
+    <ng-container *ngIf="initials; else icon">{{ initials }}</ng-container>
+    <ng-template #icon><i class="fa" [ngClass]="placeholderIcon"></i></ng-template>
+  </div>
+</ng-template>

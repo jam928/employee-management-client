@@ -1,0 +1,17 @@
+services:
+  employee-management-client:
+    image: node:18-alpine
+    container_name: employee-management-client
+    working_dir: /app
+    command: sh -c "npm ci && npx ng serve --host 0.0.0.0 --poll 2000"
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
+    ports:
+      - "4400:4400"
+    volumes:
+      - ./:/app
+      # keep Linux node_modules separate from the host's macOS node_modules
+      - node_modules:/app/node_modules
+
+volumes:
+  node_modules:

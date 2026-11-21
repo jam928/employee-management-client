@@ -1,0 +1,27 @@
+<div class="form-group">
+  <span class="col-form-label d-block">Photo</span>
+  <div class="photo-picker">
+    <app-avatar [imageUrl]="preview" [name]="name" size="lg" placeholderIcon="fa-camera"></app-avatar>
+
+    <div class="photo-picker__controls">
+      <div class="photo-picker__buttons">
+        <label [attr.for]="inputId" class="btn-action photo-picker__choose" tabindex="0"
+          (keydown.enter)="$any($event.target).click()" (keydown.space)="$event.preventDefault(); $any($event.target).click()">
+          <i class="fa fa-upload"></i> {{ preview ? 'Change photo' : 'Upload photo' }}
+        </label>
+        <button *ngIf="preview" type="button" class="btn-action btn-action--danger" (click)="onRemove()">
+          <i class="fa fa-trash"></i> Remove
+        </button>
+      </div>
+      <input
+        [id]="inputId"
+        type="file"
+        [accept]="accept"
+        class="photo-picker__input"
+        (change)="onFileSelected($event)"
+      />
+      <small *ngIf="!error" class="photo-picker__hint">JPEG, PNG, GIF or WebP, up to 5 MB</small>
+      <small *ngIf="error" class="photo-picker__error" role="alert">{{ error }}</small>
+    </div>
+  </div>
+</div>

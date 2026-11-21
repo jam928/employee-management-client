@@ -1,0 +1,29 @@
+<div class="employee-card">
+  <div class="employee-card__header">
+    <app-avatar [imageUrl]="employee?.imageUrl" [name]="employee?.name"></app-avatar>
+    <div class="employee-card__identity">
+      <h5 class="employee-card__name">{{ employee?.name }}</h5>
+      <span class="job-pill">{{ employee?.jobTitle }}</span>
+    </div>
+  </div>
+
+  <ul class="contact-list">
+    <li>
+      <i class="fa fa-envelope"></i>
+      <a href="mailto:{{ employee?.email }}">{{ employee?.email }}</a>
+    </li>
+    <li>
+      <i class="fa fa-phone"></i>
+      <a href="tel:{{ employee?.phone }}">{{ employee?.phone }}</a>
+    </li>
+  </ul>
+
+  <div class="employee-card__actions">
+    <button type="button" class="btn-action" (click)="edit.emit(employee)">
+      <i class="fa fa-pencil"></i> Edit
+    </button>
+    <button type="button" class="btn-action btn-action--danger" (click)="remove.emit(employee)">
+      <i class="fa fa-trash"></i> Delete
+    </button>
+  </div>
+</div>

@@ -42,31 +42,12 @@ describe('EmployeeService', () => {
         employeeCode: 'a602e46d-6ecd-4bf6-9fc3-c505794a38d2',
       },
     ],
-    pageable: {
-      sort: {
-        sorted: true,
-        unsorted: false,
-        empty: false,
-      },
-      offset: 0,
-      pageSize: 3,
-      pageNumber: 0,
-      unpaged: false,
-      paged: true,
+    page: {
+      size: 3,
+      number: 0,
+      totalElements: 5003,
+      totalPages: 1668,
     },
-    totalPages: 1668,
-    totalElements: 5003,
-    last: false,
-    size: 3,
-    number: 0,
-    sort: {
-      sorted: true,
-      unsorted: false,
-      empty: false,
-    },
-    numberOfElements: 3,
-    first: true,
-    empty: false,
   };
 
   const testSingleEmployee = {
@@ -121,8 +102,29 @@ describe('EmployeeService', () => {
     service.updateEmployee(testSingleEmployee).subscribe((res) => {
       expect(res).toEqual(testSingleEmployee);
     });
-    const req = httpMock.expectOne(`${apiServerUrl}/employee/update`);
+    const req = httpMock.expectOne(`${apiServerUrl}/employee/update/${testSingleEmployee.id}`);
     expect(req.request.method).toBe('PUT');
+    req.flush(testSingleEmployee);
+  });
+
+  it('uploadEmployeeImage() sends the file as multipart form data', () => {
+    const file = new File(['png'], 'avatar.png', { type: 'image/png' });
+    service.uploadEmployeeImage(1, file).subscribe((res) => {
+      expect(res).toEqual(testSingleEmployee);
+    });
+    const req = httpMock.expectOne(`${apiServerUrl}/employee/1/image`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body instanceof FormData).toBeTrue();
+    expect((req.request.body as FormData).get('file')).toEqual(file);
+    req.flush(testSingleEmployee);
+  });
+
+  it('removeEmployeeImage() deletes the image', () => {
+    service.removeEmployeeImage(1).subscribe((res) => {
+      expect(res).toEqual(testSingleEmployee);
+    });
+    const req = httpMock.expectOne(`${apiServerUrl}/employee/1/image`);
+    expect(req.request.method).toBe('DELETE');
     req.flush(testSingleEmployee);
   });
 

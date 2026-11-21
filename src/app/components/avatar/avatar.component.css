@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  flex-shrink: 0;
+}
+
+.avatar {
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar--initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+}
+
+.avatar--lg {
+  width: 72px;
+  height: 72px;
+  font-size: 1.4rem;
+}

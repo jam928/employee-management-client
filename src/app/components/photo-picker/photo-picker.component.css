@@ -1,0 +1,43 @@
+.photo-picker {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.photo-picker__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.photo-picker__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.photo-picker__buttons .btn-action {
+  flex: none;
+  padding: 7px 14px;
+  margin: 0;
+}
+
+/* Hidden but still reachable through its <label> */
+.photo-picker__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.photo-picker__hint {
+  color: var(--muted);
+}
+
+.photo-picker__error {
+  color: var(--danger);
+  font-weight: 600;
+}

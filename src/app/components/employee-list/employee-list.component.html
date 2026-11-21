@@ -1,0 +1,40 @@
+<div class="container" id="main-container">
+  <div class="list-header">
+    <div>
+      <h2 class="list-title">Team</h2>
+      <p class="list-subtitle">
+        {{ store.totalElements }} {{ store.totalElements === 1 ? 'employee' : 'employees' }}
+      </p>
+    </div>
+    <button type="button" class="btn btn-primary btn-add" (click)="dialogs.openAdd()">
+      <i class="fa fa-plus"></i> Add Employee
+    </button>
+  </div>
+
+  <div class="employee-grid">
+    <app-employee-card
+      *ngFor="let employee of store.employees; trackBy: trackById"
+      [employee]="employee"
+      (edit)="dialogs.openEdit($event)"
+      (remove)="dialogs.openDelete($event)"
+    ></app-employee-card>
+  </div>
+
+  <div *ngIf="store.employees.length === 0" class="empty-state">
+    <i class="fa fa-users"></i>
+    <h5>No employees found</h5>
+    <p>Try a different search, or add a new employee.</p>
+  </div>
+
+  <div class="pagination-wrap" *ngIf="store.totalElements > store.pageSize">
+    <ngb-pagination
+      [page]="store.pageNumber"
+      (pageChange)="store.goToPage($event)"
+      [pageSize]="store.pageSize"
+      [collectionSize]="store.totalElements"
+      [maxSize]="5"
+      [boundaryLinks]="true"
+    >
+    </ngb-pagination>
+  </div>
+</div>
